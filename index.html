@@ -2343,16 +2343,7 @@
                 const list = Array.isArray(result) ? result : (result.data || []);
 
                 // 구글 시트 1행 헤더 자동 매핑
-                const formattedData = list.map((item, idx) => ({
-                    num: item.num || item.Num || idx + 1,
-                    productModel: String(item.productModel || item['Product Model'] || item['ProductModel'] || item.productmodel || item['제품모델'] || item['모델명'] || '').trim(),
-                    panelModel: String(item.panelModel || item['Panel Model'] || item['PanelModel'] || item.panelmodel || item['판넬모델'] || item['패널모델'] || '').trim(),
-                    partNo: String(item.partNo || item['Part No'] || item['PartNo'] || item.partno || item['부품번호'] || item['품번'] || item['파트넘버'] || '').trim(),
-                    chassis: String(item.chassis || item.Chassis || item['샤시'] || item['새시'] || '').trim(),
-                    type: String(item.type || item.Type || item['타입'] || item['형태'] || '').trim(),
-                    category: String(item.category || item.Category || item['구분'] || item['카테고리'] || item['비고'] || '').trim(),
-                    imageUrl: String(item.imageUrl || item.image || item.imgUrl || item['이미지'] || item['사진'] || '').trim()
-                }));
+                const formattedData = list.map((item, idx) => normalizeItem(item, idx)).filter(Boolean);
 
                 rawData = formattedData;
                 saveCachedData(formattedData);
@@ -2966,6 +2957,7 @@
         window.clearAllRecentSearches = clearAllRecentSearches;
         window.copyPartNo = copyPartNo;
         window.openImageModal = openImageModal;
+        window.handleImageError = handleImageError;
         window.closeImageModal = closeImageModal;
         window.handleModalBackdropClick = handleModalBackdropClick;
         window.handleReset = handleReset;
