@@ -2653,15 +2653,30 @@
     // [의도]: 너무 크지 않은 58x38px 썸네일로 테이블 비율을 유지하고, 돋보기 호버 효과 및 클릭 시 4K 고화질 원본 팝업을 띄웁니다.
     const RAW_IMAGE_BASE_URL = "https://raw.githubusercontent.com/nohyeongho/air_panel_0823/main/";
 
-        function formatImageCell(panelModel) {
-        const imageFile = getPanelImage(panelModel);
-        if (!imageFile) {
+        function formatImageCell(item) {
+        // [의도]: renderTable에서 item 객체를 통째로 넘기므로, panelModel과 imageUrl을 추출하여 처리
+        var panelModel = '';
+        var driveImageUrl = '';
+        if (item && typeof item === 'object') {
+            panelModel = String(item.panelModel || '').trim();
+            driveImageUrl = String(item.imageUrl || '').trim();
+        } else {
+            panelModel = String(item || '').trim();
+        }
+
+        var imageFile = getPanelImage(panelModel);
+
+        if (!driveImageUrl && !imageFile) {
             return '<span class="empty-dash">-</span>';
         }
-        const safePanel = escapeHtml(String(panelModel).trim());
+
+        var safePanel = escapeHtml(panelModel);
+        var primarySrc = driveImageUrl || ('./' + imageFile);
+        var backupSrc = imageFile ? (RAW_IMAGE_BASE_URL + encodeURIComponent(imageFile)) : '';
+
         return `
-            <div class="panel-thumb-wrap" onclick="openImageModal('${imageFile}', '${safePanel}')" title="${safePanel} 판넬 이미지 크게 보기">
-                <img src="${imageFile}" onerror="if(this.src!==\'${RAW_IMAGE_BASE_URL}\'+encodeURIComponent(\'${imageFile}\')) this.src=\'${RAW_IMAGE_BASE_URL}\'+encodeURIComponent(\'${imageFile}\');" class="panel-thumb" alt="${safePanel}" loading="lazy" />
+            <div class="panel-thumb-wrap" onclick="openImageModal('${escapeHtml(primarySrc)}', '${safePanel}')" title="${safePanel} 판넬 이미지 크게 보기">
+                <img src="${primarySrc}" onerror="if('${backupSrc}' && this.src!=='${backupSrc}') this.src='${backupSrc}';" class="panel-thumb" alt="${safePanel}" loading="lazy" />
                 <div class="panel-thumb-zoom-icon">🔍</div>
             </div>
         `;
