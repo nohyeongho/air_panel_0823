@@ -1,0 +1,10 @@
+﻿# 임시 및 캐시 폴더
+.npm-tmp/
+npm/
+appdata/
+*.tmp
+
+# OS 및 시스템 파일
+.DS_Store
+Thumbs.db
+desktop.ini
