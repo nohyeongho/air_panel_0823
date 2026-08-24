@@ -1228,10 +1228,10 @@
     <!-- 최상단 메인 탭바 (기본 활성화: 천정형 에어컨 판넬 검색) -->
     <div class="main-nav-container">
         <div class="main-nav-pill-group">
-            <button class="main-nav-pill active" id="mainTabLockring" onclick="switchMainTab(&#39;lockring&#39;)">
+            <button class="main-nav-pill" id="mainTabLockring" onclick="switchMainTab(&#39;lockring&#39;)">
                 <span>🔧</span> <span>락링 검색</span>
             </button>
-            <button class="main-nav-pill" id="mainTabAirpanel" onclick="switchMainTab(&#39;airpanel&#39;)">
+            <button class="main-nav-pill active" id="mainTabAirpanel" onclick="switchMainTab(&#39;airpanel&#39;)">
                 <span>🔍</span> <span>천정형 에어컨 판넬 검색</span>
             </button>
         </div>
@@ -1283,7 +1283,7 @@
     </div>
 
     <!-- [2] 천정형 에어컨 판넬 검색 뷰 (기본: 표시) -->
-    <div id="appAirpanel" class="app-view-container" style="display: none;">
+    <div id="appAirpanel" class="app-view-container" style="display: flex;">
         <div class="container">
             <header id="airpanelHeader" class="app-header">
                 <h1>✨ 천정형 에어컨 판넬 검색기</h1>
@@ -1401,15 +1401,23 @@
             if (lockringView) lockringView.style.display = isLockring ? 'flex' : 'none';
             if (airpanelView) airpanelView.style.display = isLockring ? 'none' : 'flex';
             
-            if (tabLockringBtn) tabLockringBtn.classList.toggle('active', isLockring);
-            if (tabAirpanelBtn) tabAirpanelBtn.classList.toggle('active', !isLockring);
+            if (tabLockringBtn) {
+                if (isLockring) tabLockringBtn.classList.add('active');
+                else tabLockringBtn.classList.remove('active');
+            }
+            if (tabAirpanelBtn) {
+                if (!isLockring) tabAirpanelBtn.classList.add('active');
+                else tabAirpanelBtn.classList.remove('active');
+            }
             
-            logUserAction('메인 탭 전환', isLockring ? '락링 검색' : '천정형 에어컨 판넬 검색', '-', '메인 네비게이션 탭 전환');
-            
-            if (!isLockring) {
+            if (isLockring) {
+                if (typeof switchTab === 'function') switchTab(currentTab || '2ea', true);
+            } else {
                 const input = document.getElementById('searchInput');
                 if (input) setTimeout(() => input.focus(), 80);
             }
+            
+            logUserAction('메인 탭 전환', isLockring ? '락링 검색' : '천정형 에어컨 판넬 검색', '-', '메인 네비게이션 탭 전환');
         }
         window.switchMainTab = switchMainTab;
 
