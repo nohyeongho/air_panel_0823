@@ -2075,8 +2075,8 @@
             const statusEl = document.getElementById('syncStatusText');
             const box = document.getElementById('syncStatus');
 
-            if (isUserClick && statusEl) {
-                statusEl.textContent = '동기화 중...';
+            if (statusEl) {
+                statusEl.textContent = '구글 시트 실시간 연동 중...';
             }
 
             const apiUrl = getLokringApiUrl();
@@ -2085,19 +2085,19 @@
             let temp2ea = null;
             let tempPac = null;
 
-            // [우선순위 1]: Google Apps Script Web App API를 통한 실시간 동기화
+            // [우선순위 1]: Google Apps Script Web App API를 통한 초고속 실시간 동기화 (다이렉트 fetch 우선)
             if (apiUrl && apiUrl.trim()) {
                 try {
                     let apiData = null;
                     try {
-                        apiData = await fetchLokringApiJSONP(apiUrl);
-                    } catch (jsonpErr) {
-                        console.warn('[Sync API fallback to fetch]', jsonpErr.message);
                         const resp = await fetch(apiUrl);
                         if (resp.ok) {
                             const json = await resp.json();
                             apiData = json.data || json;
                         }
+                    } catch (fetchErr) {
+                        console.warn('[Sync fetch fallback to JSONP]', fetchErr.message);
+                        apiData = await fetchLokringApiJSONP(apiUrl);
                     }
 
                     if (apiData) {
@@ -2997,9 +2997,7 @@
         switchMainTab('airpanel');
         logUserAction('접속', '판넬 검색', '-', '통합 앱 기본 시작 화면(천정형 에어컨 판넬 검색)');
 
-        if (DEFAULT_GSHEET_URL) {
-            syncGoogleSheetsData(DEFAULT_GSHEET_URL);
-        }
+        syncGoogleSheetsData();
     </script>
 
 
