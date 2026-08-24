@@ -1340,9 +1340,9 @@
                     <span class="tag-pill" onclick="searchByTag(&#39;PFE-WM0EW&#39;)">PFE-WM0EW</span>
                 </div>
 
-                <div id="resultSection" class="result-section" style="display: block;">
+                <div id="resultSection" class="result-section" style="display: none;">
                     <div class="status-bar">
-                        <span>검색 결과: <strong id="resultCount" class="badge-count">2</strong>건</span>
+                        <span>검색 결과: <strong id="resultCount" class="badge-count">0</strong>건</span>
                     </div>
 
                     <div class="table-responsive">
@@ -1359,59 +1359,10 @@
                                     <th>판넬 이미지</th>
                                 </tr>
                             </thead>
-                            <tbody id="tableBody">
-            <tr>
-                <td>8</td>
-                <td class="highlight"><span class="table-match">LTNW722SPE</span></td>
-                <td class="highlight">PFE-WM0EW</td>
-                <td>
-            <div class="part-no-cell">
-                <span class="part-no-text">AGF33132515</span>
-                <button type="button" class="btn-copy" onclick="copyPartNo(this, 'AGF33132515')" title="파트넘버 복사">
-                    <span class="copy-icon">📋</span>
-                    <span class="copy-tooltip">✓ 복사완료!</span>
-                </button>
-            </div>
-        </td>
-                <td>TP</td>
-                <td>승강 그릴</td>
-                <td>제균 필터 기능</td>
-                <td>
-            <div class="panel-thumb-wrap" onclick="openImageModal('PFE-WM0EW.png', 'PFE-WM0EW')" title="PFE-WM0EW 판넬 이미지 크게 보기">
-                <img src="./PFE-WM0EW.png" onerror="if(this.src!=='https://raw.githubusercontent.com/nohyeongho/air_panel_0823/main/'+encodeURIComponent('PFE-WM0EW.png')) this.src='https://raw.githubusercontent.com/nohyeongho/air_panel_0823/main/'+encodeURIComponent('PFE-WM0EW.png');" class="panel-thumb" alt="PFE-WM0EW" loading="lazy">
-                <div class="panel-thumb-zoom-icon">🔍</div>
-            </div>
-        </td>
-            </tr>
-        
-            <tr>
-                <td>894</td>
-                <td class="highlight"><span class="table-match">LTNW722SPE</span></td>
-                <td class="highlight">PFP-WM0EW</td>
-                <td>
-            <div class="part-no-cell">
-                <span class="part-no-text">AGF33132514</span>
-                <button type="button" class="btn-copy" onclick="copyPartNo(this, 'AGF33132514')" title="파트넘버 복사">
-                    <span class="copy-icon">📋</span>
-                    <span class="copy-tooltip">✓ 복사완료!</span>
-                </button>
-            </div>
-        </td>
-                <td>TP</td>
-                <td><span class="empty-dash">-</span></td>
-                <td>제균 필터 기능</td>
-                <td>
-            <div class="panel-thumb-wrap" onclick="openImageModal('PFP-WM0EW.png', 'PFP-WM0EW')" title="PFP-WM0EW 판넬 이미지 크게 보기">
-                <img src="./PFP-WM0EW.png" onerror="if(this.src!=='https://raw.githubusercontent.com/nohyeongho/air_panel_0823/main/'+encodeURIComponent('PFP-WM0EW.png')) this.src='https://raw.githubusercontent.com/nohyeongho/air_panel_0823/main/'+encodeURIComponent('PFP-WM0EW.png');" class="panel-thumb" alt="PFP-WM0EW" loading="lazy">
-                <div class="panel-thumb-zoom-icon">🔍</div>
-            </div>
-        </td>
-            </tr>
-        </tbody>
+                            <tbody id="tableBody"></tbody>
                         </table>
                     </div>
                 </div>
-            </div>
         </div>
 
         <div id="imageModal" class="image-modal" onclick="handleModalBackdropClick(event)" style="display: none;">
