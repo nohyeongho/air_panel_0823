@@ -1411,7 +1411,11 @@
             }
             
             if (isLockring) {
-                if (typeof switchTab === 'function') switchTab(currentTab || '2ea', true);
+                // [설계 의도]: 도면 버튼이 아직 빌드되지 않은 최초 진입 시에만 switchTab을 실행하여 기존 선택된 상세정보를 보존합니다.
+                const hasSpots = overlay && overlay.children && overlay.children.length > 0;
+                if (!hasSpots && typeof switchTab === 'function') {
+                    switchTab(currentTab || '2ea', true);
+                }
                 if (typeof syncGoogleSheetsData === 'function') syncGoogleSheetsData(null, true);
             } else {
                 const input = document.getElementById('searchInput');
@@ -2197,7 +2201,8 @@
                 console.warn('[Sync] LocalStorage save warning:', storageErr);
             }
 
-            switchTab(currentTab, true);
+            // [설계 의도]: 사용자가 부품 상세정보를 조회 중일 때 화면이 리프레시되어 내용이 사라지는 것을 방지하기 위해 
+            // 연동 완료 시 switchTab(화면 리셋)을 호출하지 않고 백그라운드 데이터와 상태 뱃지만 업데이트합니다.
             console.log(`[GoogleSheet Sync] Success: ${syncLog.join(', ')}`);
             
             if (statusEl) {
