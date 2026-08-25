@@ -1244,7 +1244,7 @@
             <p>번호 버튼을 클릭하면 해당 부품 정보를 확인할 수 있습니다</p>
             <p style="color: #A50034; font-weight: 700; font-size: 13px; margin-top: 4px;">📌 모바일은 가로보기 또는 화면을 펼쳐서 사용하세요. (1EVA 2Capi는 2EVA 2Capi 부품과 동일)</p>
             <div id="syncStatus" style="font-size: 12px; color: #16a34a; font-weight: 700; margin-top: 6px; display: inline-flex; align-items: center; gap: 8px; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 4px 12px; border-radius: 20px; flex-wrap: wrap; justify-content: center;">
-                <span>🌐</span> <span id="syncStatusText">데이터 연동 완료 (기본 데이터 활성화)</span>
+                <span>🌐</span> <span id="syncStatusText">구글 시트 실시간 연동 완료</span>
                 <button type="button" onclick="syncGoogleSheetsData(null, true)" style="background: none; border: none; cursor: pointer; font-size: 12px; padding: 0 2px; color: inherit; font-weight: 700;" title="구글 시트 실시간 동기화 새로고침">🔄 새로고침</button>
                 
             </div>
@@ -1412,6 +1412,7 @@
             
             if (isLockring) {
                 if (typeof switchTab === 'function') switchTab(currentTab || '2ea', true);
+                if (typeof syncGoogleSheetsData === 'function') syncGoogleSheetsData(null, true);
             } else {
                 const input = document.getElementById('searchInput');
                 if (input) setTimeout(() => input.focus(), 80);
@@ -2997,7 +2998,7 @@
         switchMainTab('airpanel');
         logUserAction('접속', '판넬 검색', '-', '통합 앱 기본 시작 화면(천정형 에어컨 판넬 검색)');
 
-        syncGoogleSheetsData();
+        syncGoogleSheetsData(null, true);
     </script>
 
 
